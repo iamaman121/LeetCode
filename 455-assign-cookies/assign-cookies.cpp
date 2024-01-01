@@ -10,11 +10,10 @@ public:
                 ++j;
             }
             else{
-                ++cnt;
                 ++i;
                 ++j;
             }
         }
-        return cnt;
+        return i;
     }
 };
