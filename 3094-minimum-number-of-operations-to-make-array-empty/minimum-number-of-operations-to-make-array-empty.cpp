@@ -9,8 +9,7 @@ public:
         for(pair<int,int> p : ump){
             if(p.second == 1) return -1;
             res+=p.second/3;
-            p.second%=3;
-            res+=(p.second>0);
+            res+=(p.second%3>0);
         }
         return res;
     }
