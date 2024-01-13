@@ -5,18 +5,17 @@ public:
         unordered_map<int,int> ump[n];
         for(int i=1;i<n;++i){
             for(int j=0;j<i;++j){
-                long dif = (long)nums[i]-(long)nums[j];
-                if(dif<=(long)INT_MIN || dif>=(long)INT_MAX) continue;
-                int diff= (int)dif;
-                int apj=0, api=0;
-                if(ump[j].find(diff)!=ump[j].end()){
-                    apj=ump[j][diff];
+                long diff=(long)nums[i]-(long)nums[j];
+                if(diff<=(long)INT_MIN || diff>=(long)INT_MAX) continue;
+                int cdiff= (int)diff;
+                if(ump[j].find(cdiff)==ump[j].end()){
+                    ump[j][cdiff]=0;
                 }
-                if(ump[i].find(diff)!=ump[i].end()){
-                    api=ump[i][diff];
+                if(ump[i].find(cdiff)==ump[i].end()){
+                    ump[i][cdiff]=0;
                 }
-                ans+=apj;
-                ump[i][diff]=api+apj+1;
+                ans+=ump[j][cdiff];
+                ump[i][cdiff]+=1+ump[j][cdiff];
             }
         }
         return ans;
