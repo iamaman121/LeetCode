@@ -8,8 +8,8 @@ public:
         for(char ch: t){
             alp[ch-'a']--;
         }
-        int sum=0;
-        for(int i=0;i<26;++i) sum+=abs(alp[i]);
-        return sum/2;
+        int count=0;
+        for(int i=0;i<26;++i) count+= alp[i]>0?alp[i]:0;
+        return count;
     }
 };
