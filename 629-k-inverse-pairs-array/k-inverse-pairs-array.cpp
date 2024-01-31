@@ -14,7 +14,19 @@ public:
         return dp[n][k];
     }
     int kInversePairs(int n, int k) {
-        memset(dp, -1, sizeof(dp));
-        return helper(n, k);
+        int dp[2][k+1];
+        memset(dp,0,sizeof(dp));
+        dp[0][0]=1;
+        for(int j=1;j<=n;++j){
+            int r=j%2, csum=0;
+            for(int i=0;i<=k;++i){
+                csum=(csum+dp[1-r][i])%mod;
+                if(i-j>=0) csum = (csum-dp[1-r][i-j]+mod)%mod;
+                dp[r][i]= csum;
+                // if(k-i>=0)  dp[r][i]=(dp[r][i]-dp[1-r][k-i])%mod;
+                // dp[r][i]=(dp[r][i]+dp[r][i-1])%mod;
+            }
+        } 
+        return dp[n%2][k];
     }
 };
