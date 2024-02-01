@@ -6,7 +6,7 @@ public:
         sort(nums.begin(),nums.end());
         for(int i=0;i<n;i+=3){
             if(nums[i+2]-nums[i]<=k){
-                newArrays.push_back({nums.begin()+i,nums.begin()+i+3});
+                newArrays.push_back(vector<int>(nums.begin()+i,nums.begin()+i+3));
             }
             else {
                 newArrays.clear();
