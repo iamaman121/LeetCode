@@ -1,12 +1,11 @@
 class Solution {
 public:
     int climbStairs(int n) {
-        int a=0,b=1,c;
-        for(int i=1;i<=n;++i){
-            c=a+b;
-            a=b;
-            b=c;
+        int a=1, b=2, c;
+        for(int i=2;i<=n;++i){
+            i<n?(c=a+b):c=0;
+            a=b, b=c;
         }
-        return c;
+        return a;
     }
 };
