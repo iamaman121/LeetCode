@@ -2,24 +2,13 @@ class Solution {
 public:
     vector<int> sequentialDigits(int lo, int hi) {
         vector<int> ans;
-        int lDig=0, hDig=0, l=lo, r=hi;
-        while(l>0){
-            ++lDig;
-            l/=10;
-        }
-        while(r>0){
-            ++hDig;
-            r/=10;
-        }
-        string temp;
         int curr;
-        for(int nod=lDig; nod<=hDig;++nod){
+        for(int nod=to_string(lo).size(); nod<=to_string(hi).size();++nod){
             for(int sv=1;sv<=10-nod;++sv){
-                temp="";
+                curr=0;
                 for(int i=0;i<nod;++i){
-                    temp+=(char)('0'+sv+i);
+                    curr=curr*10+(sv+i);
                 }
-                curr=stoi(temp);
                 if(curr>=lo && curr<=hi) ans.push_back(curr);
             }
         }
