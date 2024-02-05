@@ -1,21 +1,19 @@
 class Solution {
 public:
+    int getNum(string s){
+        return (s[0]-'0')*10+(s[1]-'0');
+    }
     int numDecodings(string s) {
-        int len = (int)s.size();
-        vector<int> dways(len+3);
-        dways[len]=1;
-        for(int i=len-1; i>=0; --i){
-            if(s[i] != '0'){
-                dways[i]=dways[i+1];
-                if(i+1<len){
-                    int val= (s[i]-'0')*10 + (s[i+1]-'0');
-                    if(val<=26 && val>=10) dways[i]+=dways[i+2];
-                }
+        int n=(int)s.length();
+        vector<int> dp(n+1);
+        dp[0]=1;
+        for(int i=1;i<=n;++i){
+            if(s[i-1]>'0' && s[i-1]<='9') dp[i]=dp[i-1];
+            if(i>=2){
+                int num= getNum(s.substr(i-2,2));
+                if(num>=10 && num<=26) dp[i]+=dp[i-2];
             }
-            // else{
-            //     dways[i]=dways[i+2];
-            // }
         }
-        return dways[0];
+        return dp[n];
     }
 };
