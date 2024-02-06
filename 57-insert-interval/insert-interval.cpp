@@ -1,31 +1,20 @@
 class Solution {
 public:
-    vector<vector<int>> insert(vector<vector<int>>& vals, vector<int>& nVal) {
-        int n=(int)vals.size();
-        if(n==0){
-            vals.push_back(nVal);
-            return vals;
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        int n= (int)intervals.size(), i=0;
+        vector<vector<int>> res;
+        while(i<n && intervals[i][1]<newInterval[0]){
+            res.push_back(intervals[i++]);
         }
-        else if(vals[n-1][1]<nVal[0]){
-            vals.push_back(nVal);
-            return vals;
+        while(i<n && newInterval[1]>=intervals[i][0]){
+            newInterval[0]=min(newInterval[0], intervals[i][0]);
+            newInterval[1]=max(newInterval[1], intervals[i][1]);
+            ++i;
         }
-        for(int i=0;i<n;++i){
-            if(nVal[0]<=vals[i][1]){
-                vals.insert(vals.begin()+i, nVal);
-                break;
-            }
+        res.push_back(newInterval);
+        while(i<n){
+            res.push_back(intervals[i++]);
         }
-        for(int i=1;i<=n;++i){
-            if(vals[i][0]<=vals[i-1][1]){
-                vals[i-1][0]=min(vals[i-1][0], vals[i][0]);
-                vals[i-1][1]=max(vals[i-1][1], vals[i][1]);
-                vals.erase(vals.begin()+i);
-                --i;
-                --n;
-            }
-            
-        }
-        return vals;
+        return res;
     }
 };
