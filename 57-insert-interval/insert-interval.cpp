@@ -6,10 +6,6 @@ public:
             vals.push_back(nVal);
             return vals;
         }
-        else if(vals[0][0]>nVal[1]){
-            vals.insert(vals.begin()+0, nVal);
-            return vals;
-        }
         else if(vals[n-1][1]<nVal[0]){
             vals.push_back(nVal);
             return vals;
