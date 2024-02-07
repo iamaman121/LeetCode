@@ -12,41 +12,15 @@ class Solution {
 public:
     ListNode* merge2Lists(ListNode* l1, ListNode* l2) {
         if(!l1) return l2;
-        if(!l2) return l1;
-        ListNode *head,*trav;
-        ListNode *temp1=l1,*temp2=l2;
-        if(temp1->val<=temp2->val){
-            head=temp1;
-            trav=temp1;
-            temp1=temp1->next;
+        else if(!l2) return l1;
+        if(l1->val<=l2->val){
+            l1->next=merge2Lists(l1->next, l2);
+            return l1;
         }
         else{
-            head=temp2;
-            trav=temp2;
-            temp2=temp2->next;
+            l2->next=merge2Lists(l1, l2->next);
+            return l2;
         }
-        while(temp1 and temp2){
-            if(temp1->val<=temp2->val){
-                trav->next=temp1;
-                temp1=temp1->next;
-                trav=trav->next;
-            }
-            else{
-                trav->next=temp2;
-                temp2=temp2->next;
-                trav=trav->next;
-            }
-        }
-        if(temp1){
-            trav->next=temp1;
-        }
-        else if(temp2){
-            trav->next=temp2;
-        }
-        else{
-            trav->next=NULL;
-        }
-        return head;
     }
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         int k=(int)lists.size();
