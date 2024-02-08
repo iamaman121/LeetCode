@@ -16,7 +16,7 @@ public:
         int lft= helper(root->left, ans);
         int rgt= helper(root->right, ans);
         ans=max(ans, root->val+max(0,max(lft,rgt)));
-        ans=max(ans, max(lft,0)+root->val+max(0, rgt));
+        ans=max(ans, lft+root->val+rgt);
         return root->val + max(0, max(lft, rgt));
     }
     int maxPathSum(TreeNode* root) {
