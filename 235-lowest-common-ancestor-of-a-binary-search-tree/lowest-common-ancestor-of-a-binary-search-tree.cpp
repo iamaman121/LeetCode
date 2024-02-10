@@ -13,7 +13,7 @@ public:
     int helper(TreeNode* root, TreeNode* p, TreeNode* q, TreeNode* &ans){
         if(!root) return 0;
         int cval=0;
-        if(root->val==p->val || root->val==q->val) cval=1;
+        if(root==p || root==q) cval=1;
         int lft=helper(root->left, p, q, ans);
         int rgt=helper(root->right, p, q, ans);
         if(cval+lft+rgt==2){
