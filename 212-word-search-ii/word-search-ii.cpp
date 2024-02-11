@@ -9,7 +9,7 @@ public:
 };
 class Solution {
 public:
-    unordered_set<string> ans;
+    vector<string> ans;
     vector<int> dir= vector<int>({-1,0,1,0,-1});
     void insert(string word, Trie* curr) {
         for(int i=0;i<(int)word.size();++i){
@@ -22,7 +22,8 @@ public:
     }
     void dfs(vector<vector<char>>& board, int r, int c, int m, int n, vector<vector<bool>> &vis, Trie* curr, string &str){
         if(curr && curr->isWord){
-            ans.insert(str);
+            ans.push_back(str);
+            curr->isWord= false;
         } 
         if(!curr) return;
         if(r<0 || c<0 || r==m || c==n){
@@ -54,6 +55,6 @@ public:
                 dfs(board, i, j, m, n, vis, curr, str);
             }
         }
-        return vector<string>({ans.begin(), ans.end()});
+        return ans;
     }
 };
