@@ -8,29 +8,35 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+struct compare{
+    bool operator()(ListNode* a, ListNode* b){
+        return a->val>b->val;
+    }
+};
 class Solution {
 public:
-    ListNode* merge2Lists(ListNode* l1, ListNode* l2) {
-        if(!l1) return l2;
-        else if(!l2) return l1;
-        if(l1->val<=l2->val){
-            l1->next=merge2Lists(l1->next, l2);
-            return l1;
-        }
-        else{
-            l2->next=merge2Lists(l1, l2->next);
-            return l2;
-        }
-    }
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        int k=(int)lists.size();
+        int k= (int)lists.size();
         if(k==0) return NULL;
-        int si=0,ei=k-1;
-        while(si<ei){
-            lists[si]=merge2Lists(lists[si],lists[ei]);
-            ++si;--ei;
-            si=0;
+        priority_queue<ListNode*, vector<ListNode*>, compare> pq;
+        for(int i=0;i<k;++i){
+            if(lists[i]) pq.push(lists[i]);
         }
-        return lists[0];
+        if(pq.empty()) return NULL;
+        ListNode *temp=NULL, *last=NULL, *curr=NULL;
+        while(!pq.empty()){
+            curr=pq.top();
+            pq.pop();
+            if(curr->next) pq.push(curr->next);
+            if(!last){
+                last= temp= curr;
+            }
+            else{
+                temp->next= curr;
+                temp=temp->next;
+            }
+        }
+        if(temp) temp->next=NULL;
+        return last;
     }
 };
