@@ -21,24 +21,26 @@ public:
 
 class Solution {
 public:
-    unordered_map<Node*, Node*> ump;
+    unordered_map<Node*,Node*> ump;
     Node* getClone(Node* node){
         if(ump.find(node)==ump.end()){
-            ump[node]= new Node(node->val);
+            ump[node] = new Node(node->val);
         }
         return ump[node];
     }
     unordered_set<Node*> vis;
-    void dfs(Node* node){
-        vis.insert(node);
-        Node* clone = getClone(node);
-        for(Node* des: node->neighbors){
+    void dfs(Node* src){
+        vis.insert(src);
+        Node *clone= getClone(src);
+        for(Node* des: src->neighbors){
             clone->neighbors.push_back(getClone(des));
-            if(vis.find(des)==vis.end()) dfs(des);
+            if(vis.find(des)==vis.end()){
+                dfs(des);
+            }
         }
     }
     Node* cloneGraph(Node* node) {
-        if(node==NULL) return node;
+        if(!node) return node;
         dfs(node);
         return getClone(node);
     }
