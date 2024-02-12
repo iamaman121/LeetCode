@@ -8,17 +8,11 @@ public:
     
     void addNum(int num) {
         maxHeap.push(num);
-        while(maxHeap.size()>1+minHeap.size()){
-            minHeap.push(maxHeap.top());
-            maxHeap.pop();
-        }
-        while(!maxHeap.empty() && !minHeap.empty()){
-            if(maxHeap.top()<=minHeap.top()) break;
-            int val1= maxHeap.top(), val2= minHeap.top();
-            maxHeap.pop(), minHeap.pop();
-            maxHeap.push(val2);
-            minHeap.push(val1);
-        }
+        minHeap.push(maxHeap.top());
+        maxHeap.pop();
+        if(maxHeap.size()==minHeap.size()) return;
+        maxHeap.push(minHeap.top());
+        minHeap.pop();
     }
     
     double findMedian() {
