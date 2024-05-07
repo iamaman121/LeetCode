@@ -1,12 +1,17 @@
+unordered_map<char,int> ump;
+bool cmp(char a, char b){
+    return ump[a]<ump[b];
+    return a<b;
+}
 class Solution {
-  public:
-    string customSortString(string S, string T) {
-        unordered_map<char, int> dir;
-        for (int i = 0; i < S.size(); i++) {
-            dir[S[i]] = i + 1;
+public:
+    
+    string customSortString(string order, string s) {
+        ump.clear();
+        for(int i=0;i<(int)order.length();++i){
+            ump[order[i]]= i+1;
         }
-        sort(T.begin(), T.end(),
-             [&](char a, char b) { return dir[a] < dir[b]; });
-        return T;
+        sort(s.begin(), s.end(), cmp);
+        return s;
     }
 };
