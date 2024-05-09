@@ -1,43 +1,49 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
     bool isEvenOddTree(TreeNode* root) {
-        if (!root) {
-            return true;
-        }
+        if(!root) return true;
+        int level=0;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()){
+            int len=q.size();
+            if(level&1){
+                int prev= 1e6+2;
+                while(len--){
+                    TreeNode* frnt= q.front();
+                    q.pop();
+                    if(frnt->val>=prev || frnt->val&1) return false;
+                    prev= frnt->val;
+                    if(frnt->left) q.push(frnt->left);
+                    if(frnt->right) q.push(frnt->right);
 
-        std::queue<TreeNode*> queue;
-        int level = 0;
-
-        queue.push(root);
-
-        while (!queue.empty()) {
-            int size = queue.size();
-            int prev_val = (level % 2 == 0) ? std::numeric_limits<int>::min() : std::numeric_limits<int>::max();
-
-            for (int i = 0; i < size; ++i) {
-                TreeNode* node = queue.front();
-                queue.pop();
-
-                // Check if the values follow the conditions
-                if ((level % 2 == 0 && (node->val % 2 == 0 || node->val <= prev_val)) ||
-                    (level % 2 == 1 && (node->val % 2 == 1 || node->val >= prev_val))) {
-                    return false;
-                }
-
-                prev_val = node->val;
-
-                // Add children to the queue
-                if (node->left) {
-                    queue.push(node->left);
-                }
-                if (node->right) {
-                    queue.push(node->right);
                 }
             }
+            else{
+                int prev= 0;
+                while(len--){
+                    TreeNode* frnt= q.front();
+                    q.pop();
+                    if(frnt->val<=prev || frnt->val%2==0) return false;
+                    prev= frnt->val;
+                    if(frnt->left) q.push(frnt->left);
+                    if(frnt->right) q.push(frnt->right);
 
-            level++;
+                }
+            }
+            ++level;
         }
-
         return true;
     }
 };
