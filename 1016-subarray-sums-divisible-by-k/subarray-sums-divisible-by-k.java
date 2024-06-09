@@ -4,9 +4,7 @@ class Solution {
         prefixSumModMap.put(0,1);
         int csum=0, ans=0;
         for(int i=0;i<nums.length;++i){
-            csum+= nums[i];
-            while(csum<0) csum+=k;
-            csum= csum%k;
+            csum= (csum+nums[i]%k+k)%k;
             if(prefixSumModMap.containsKey(csum)) ans+= prefixSumModMap.get(csum);
             prefixSumModMap.put(csum,
                 prefixSumModMap.containsKey(csum)?prefixSumModMap.get(csum)+1:1);
