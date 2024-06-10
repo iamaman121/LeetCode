@@ -13,13 +13,12 @@ public:
             reverse(nums.begin(),nums.end());
             return;
         }
-        int swapIdx= idx+1;
-        for(int i=idx+2;i<n;++i){
-            if(nums[i]>nums[idx] && nums[i]<nums[swapIdx]){
-                swapIdx= i;
+        for(int i=n-1;i>idx;--i){
+            if(nums[i]>nums[idx]){
+                swap(nums[i], nums[idx]);
+                break;
             }
         }
-        swap(nums[idx], nums[swapIdx]);
-        sort(nums.begin()+idx+1,nums.end());
+        reverse(nums.begin()+idx+1, nums.end());
     }
 };
