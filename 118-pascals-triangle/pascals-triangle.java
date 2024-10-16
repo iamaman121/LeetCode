@@ -1,17 +1,15 @@
 class Solution {
-    public List<List<Integer>> generate(int n) {
-        List<List<Integer>> pascalArray = new ArrayList<>();
-        for(int i=0;i<n;++i){
-            List<Integer> cArr= new ArrayList<>();
-            cArr.add(1);
-            // pascalArray.add(Arrays.asList(1));
-            int curr;
-            for(int j=1;j<=i;++j){
-                curr= (cArr.get(j-1)*(i-j+1))/j;
-                cArr.add(curr);
+    public List<List<Integer>> generate(int numRows) {
+        List<Integer> pascalRow= new ArrayList<>(List.of(1));
+        List<List<Integer>> pascalTriangle= new ArrayList<>();
+        pascalTriangle.add(new ArrayList<>(pascalRow));
+        for(int row=2;row<=numRows;row++){
+            pascalRow.add(0,1);
+            for(int j=1;j<pascalRow.size()-1;j++){
+                pascalRow.set(j, pascalRow.get(j)+pascalRow.get(j+1));
             }
-            pascalArray.add(cArr);
+            pascalTriangle.add(new ArrayList<>(pascalRow));
         }
-        return pascalArray;
+        return pascalTriangle;
     }
 }
