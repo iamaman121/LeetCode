@@ -7,7 +7,7 @@ class Solution {
         }
         char[] str = s.toCharArray();
         for(int i=0;i<n;i++){
-            int val = str[i] - 'a';
+            int val = str[i] - 97;
             val = (val+sft[i])%26;
             str[i] = (char)(97+val);
         }
