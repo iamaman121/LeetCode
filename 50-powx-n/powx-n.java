@@ -1,16 +1,17 @@
 class Solution {
-    private static double pow(double x, long n){
-        if(n==0) return 1.0;
-        double ans=(n%2==1)?x:1.0;
-        double temp= pow(x,n/2);
-        return ans*temp*temp;
-    }
     public double myPow(double x, int n) {
-        if(n<0){
-            return pow(1.0/x, -1*(long)n);
+        if(n==Integer.MIN_VALUE){
+            return x*myPow(x,n+1);
         }
-        else{
-            return pow(x, (long)n);
-        }
+        double ans= pow(x, Math.abs(n));
+        if(n<0) return 1.0/ans;
+        else return ans;
+    }
+    private double pow(double x, int n){
+        if(n==0) return 1.0;
+        double ans= pow(x, n/2);
+        ans= ans*ans;
+        if(n%2==1) ans=ans*x;
+        return ans;
     }
 }
