@@ -1,14 +1,15 @@
 class Solution {
     public int[] twoSum(int[] nums, int tar) {
-        HashMap<Integer,Integer> ump= new HashMap<>();
+        
+        HashMap<Integer,Integer> hm = new HashMap<>();
         for(int i=0;i<nums.length;i++){
-            if(ump.containsKey(tar-nums[i])){
-                return new int[]{i, ump.get(tar-nums[i])};
+            if(hm.containsKey(tar-nums[i])){
+                int[] ans= {hm.get(tar-nums[i]),i};
+                return ans;
             }
-            else{
-                ump.put(nums[i],i);
-            }
+            hm.put(nums[i],i);
         }
-        return null;
+        int[] ans = new int[2];
+        return ans;
     }
 }
