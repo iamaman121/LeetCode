@@ -20,7 +20,7 @@ class Solution {
             }
             else{
                 if(arr[mid+1]==arr[mid]){
-                    lo = mid+1;
+                    lo = mid+2;
                 }
                 else{
                     hi = mid-1;
