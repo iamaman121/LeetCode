@@ -23,7 +23,7 @@ class Solution {
                     lo = mid+2;
                 }
                 else{
-                    hi = mid-1;
+                    hi = mid-2;
                 }
             }
         }
