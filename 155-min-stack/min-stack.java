@@ -32,14 +32,8 @@ class MinStack {
     }
     
     public int top() {
-        long ans;
-        if(stk.peek()>=minm){
-            ans = stk.peek();
-        }
-        else{
-            ans = minm;
-        }
-        return (int)ans;
+        return (int)Math.max((long)stk.peek(),minm);
+        
     }
     
     public int getMin() {
