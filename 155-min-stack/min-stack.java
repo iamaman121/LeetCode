@@ -1,39 +1,45 @@
 class MinStack {
-    Stack<Long> stk;
-    long minm;
+    Stack<Long> stk = new Stack<>();
+    long minm; 
     public MinStack() {
-        stk= new Stack<>();
+        
     }
     
-    public void push(int val) {
+    public void push(int v) {
+        long val = (long)v;
         if(stk.isEmpty()){
-            minm= (long)val;
-            stk.push((long)val);
+            minm = val;
+            stk.push(val);
         }
         else{
-            if((long)val>=minm){
-                stk.push((long)val);
+            if(val>=minm){
+                stk.push(val);
             }
             else{
-                long value= val;
-                stk.push(2*value-minm);
-                minm= value;
+                stk.push(2*val-minm);
+                minm = val;
             }
         }
     }
     
     public void pop() {
-        if(stk.isEmpty()) return;
-        long value= stk.pop();
-        if(value<minm){
-            minm= 2*minm-value;
+        if(stk.peek()>=minm){
+            stk.pop();
+        }
+        else{
+            minm = 2*minm - stk.pop();
         }
     }
     
     public int top() {
-        long value= stk.peek();
-        return (int)Math.max(value, minm);
-        // return (value<minm)?minm:value;
+        long ans;
+        if(stk.peek()>=minm){
+            ans = stk.peek();
+        }
+        else{
+            ans = minm;
+        }
+        return (int)ans;
     }
     
     public int getMin() {
