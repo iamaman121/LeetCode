@@ -4,7 +4,7 @@ class Solution {
         Stack<Integer> stk = new Stack<>();
         HashSet<Integer> hs = new HashSet<>();
         for(int i=0;i<n;i++){
-            while(hs.contains(popped[i])==false && pi<n){
+            while(hs.contains(popped[i])==false){
                 stk.push(pushed[pi]);
                 hs.add(pushed[pi]);
                 pi++;
