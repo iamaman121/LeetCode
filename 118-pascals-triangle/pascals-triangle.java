@@ -1,14 +1,13 @@
 class Solution {
-    public List<List<Integer>> generate(int numRows) {
-        List<Integer> pascalRow= new ArrayList<>(List.of(1));
-        List<List<Integer>> pascalTriangle= new ArrayList<>();
-        pascalTriangle.add(new ArrayList<>(pascalRow));
-        for(int row=2;row<=numRows;row++){
-            pascalRow.add(0,1);
-            for(int j=1;j<pascalRow.size()-1;j++){
-                pascalRow.set(j, pascalRow.get(j)+pascalRow.get(j+1));
+    public List<List<Integer>> generate(int n) {
+        List<List<Integer>> pascalTriangle = new ArrayList<>();
+        List<Integer> row = new ArrayList<>();
+        for(int i=1;i<=n;i++){
+            row.add(1);
+            for(int j=i-2;j>0;j--){
+                row.set(j, row.get(j-1)+row.get(j));
             }
-            pascalTriangle.add(new ArrayList<>(pascalRow));
+            pascalTriangle.add(new ArrayList<>(row));
         }
         return pascalTriangle;
     }
