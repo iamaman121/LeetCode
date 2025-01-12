@@ -1,27 +1,29 @@
 class Solution {
 public:
-    void setZeroes(vector<vector<int>>& matrix) {
-        int nr= (int)matrix.size(), nc= (int)matrix[0].size(), zeroRow=1;
-        for(int i=0;i<nr;++i){
-            for(int j=0;j<nc;++j){
-                if(matrix[i][j]==0){
-                    matrix[0][j]=0;
-                    if(i==0){
-                        zeroRow=0;
-                    }
-                    else matrix[i][0]=0;
+    void setZeroes(vector<vector<int>>& A) {
+        int m = A.size(), n = A[0].size();
+        bool zerothRow = false;
+        for(int i=0;i<n;i++){
+            if(A[0][i]==0){
+                zerothRow = true;
+                break;
+            }
+        }
+        for(int i=1;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(A[i][j]==0){
+                    A[i][0]=0;
+                    A[0][j]=0;
                 }
             }
         }
-        for(int i=nr-1;i>=0;--i){
-            for(int j=nc-1;j>=0;--j){
-                if(i!=0){
-                    if(matrix[i][0]==0 || matrix[0][j]==0) matrix[i][j]=0;
-                }
-                else{
-                    if(!zeroRow || matrix[0][j]==0) matrix[i][j]=0;
-                }
+        for(int i=m-1;i>0;i--){
+            for(int j=n-1;j>=0;j--){
+                if(A[i][0]==0 || A[0][j]==0) A[i][j]=0;
             }
+        }
+        if(zerothRow){
+            for(int i=0;i<n;i++) A[0][i]=0;
         }
     }
 };
