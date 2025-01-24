@@ -1,17 +1,14 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int tar) {
-        unordered_map<int,int> umap;
-        vector<int> ans;
-        for(int i=0;i<(int)nums.size();++i){
-            if(umap.find(tar-nums[i])==umap.end()){
-                umap.insert({nums[i],i});
-            } 
-            else{
-                ans ={umap[tar-nums[i]],i};
-                break;
+        unordered_map<int,int> ma;
+        for(int i=0;i<nums.size();i++){
+            int rem = tar-nums[i];
+            if(ma.find(rem)!=ma.end()){
+                return vector<int>({ma[rem],i});
             }
+            ma.insert({nums[i],i});
         }
-        return ans;
+        return vector<int>({});
     }
 };
