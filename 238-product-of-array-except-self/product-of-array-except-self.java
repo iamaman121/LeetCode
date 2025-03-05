@@ -1,20 +1,16 @@
 class Solution {
-   public int[] productExceptSelf(int[] nums) {
-        int prod = 1, countZero= 0, n= nums.length;
-        for(int i=0;i<n;i++){
-            if(nums[i]!=0) prod*= nums[i];
-            else countZero++;
-        }
+    public int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
         int[] ans = new int[n];
-        if(countZero==0){
-            for(int i=0;i<n;i++){
-                ans[i]= prod/nums[i];
-            }
-        } 
-        else if(countZero==1){
-            for(int i=0;i<n;i++){
-                if(nums[i]==0) ans[i]= prod;
-            }
+        Arrays.fill(ans, 1);
+        int lft=1, rgt=1;
+        for(int i=0;i<n;i++){
+            ans[i]*= lft;
+            lft*= nums[i];
+        }
+        for(int i=n-1;i>=0;i--){
+            ans[i]*=rgt;
+            rgt*=nums[i];
         }
         return ans;
     }
