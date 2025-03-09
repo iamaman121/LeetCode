@@ -6,12 +6,16 @@ class Solution {
             psa[i][0]= pos[i]; psa[i][1]= spd[i];
         }
         Arrays.sort(psa, (a,b)->b[0]-a[0]);
-        Stack<Double> stk = new Stack<>();
-        for(int[] p: psa){
-            double time= (double)(target-p[0])/p[1];
-            if(!stk.isEmpty() && stk.peek()>=time) continue;
-            stk.push(time);
-        }
-        return stk.size();
+        double cTime= (double)(target-psa[0][0])/psa[0][1];
+        int fleet=1;
+        for(int i=1;i<n;i++){
+            double time= (double)(target-psa[i][0])/psa[i][1];
+            if(time<=cTime) continue;
+            else{
+                cTime= time;
+                ++fleet;
+            }
+        }        
+        return fleet;
     }
 }
