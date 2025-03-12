@@ -1,5 +1,5 @@
 class Solution {
-    private int findTime(int val, int[] pile){
+    private long findTime(int val, int[] pile){
         int res=0;
         for(int p: pile){
             res+= p/val;
@@ -9,10 +9,14 @@ class Solution {
     }
     public int minEatingSpeed(int[] pile, int h) {
         int n=pile.length;
-        int low=1, high=Integer.MAX_VALUE, mid, ans=-1;
+        int low=0, high=1, mid, ans=-1;
+        for(int i=0;i<n;i++){
+            high= Math.max(high,pile[i]);
+            low+= pile[i]/h;
+        }
         while(low<=high){
             mid= low+(high-low)/2;
-            if(findTime(mid, pile)<=h){
+            if(mid>0 && findTime(mid, pile)<=h){
                 ans= mid;
                 high=mid-1;
             }
