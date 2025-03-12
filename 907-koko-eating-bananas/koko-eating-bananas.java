@@ -1,27 +1,27 @@
 class Solution {
-    private long findTime(int val, int[] pile){
-        int res=0;
-        for(int p: pile){
-            res+= p/val;
-            if(p%val>0) res++;
+    private long findTime(int[] piles, int k){
+        long time= 0;
+        for(int i=0;i<piles.length;i++){
+            time+= (long)(piles[i]/k);
+            if(piles[i]%k>0) time++;
         }
-        return res;
+        return time;
     }
-    public int minEatingSpeed(int[] pile, int h) {
-        int n=pile.length;
-        int low=0, high=1, mid, ans=-1;
-        for(int i=0;i<n;i++){
-            high= Math.max(high,pile[i]);
-            low+= pile[i]/h;
-        }
+    public int minEatingSpeed(int[] piles, int h) {
+        int n= piles.length;
+        int low=1, high= piles[0];
+        for(int i=0;i<n;i++) high= Math.max(high, piles[i]);
+        int ans= high;
         while(low<=high){
-            mid= low+(high-low)/2;
-            if(mid>0 && findTime(mid, pile)<=h){
+            int mid= low+(high-low)/2;
+            if(findTime(piles, mid)<=(long)h){
                 ans= mid;
-                high=mid-1;
+                high= mid-1;
             }
-            else low=mid+1;
-        } 
+            else{
+                low= mid+1;
+            }
+        }
         return ans;
     }
 }
