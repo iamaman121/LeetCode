@@ -5,7 +5,10 @@ class TimeMap {
     }
     
     public void set(String key, String value, int timestamp) {
-        cache.computeIfAbsent(key, k -> new TreeMap<>()).put(timestamp, value);
+        if(!cache.containsKey(key)){
+            cache.put(key, new TreeMap<>());
+        }
+        cache.get(key).put(timestamp, value);
     }
     
     public String get(String key, int timestamp) {
