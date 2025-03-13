@@ -14,9 +14,10 @@ class TimeMap {
     public String get(String key, int timestamp) {
         TreeMap<Integer, String> treeMap= cache.get(key);
         if(treeMap==null) return "";
-        Map.Entry<Integer,String> entry = treeMap.floorEntry(timestamp);
-        if(entry==null) return "";
-        else return entry.getValue();
+        // Map.Entry<Integer,String> entry = treeMap.floorEntry(timestamp);
+        if(treeMap.floorKey(timestamp)==null) return "";
+        int time= treeMap.floorKey(timestamp);
+        return treeMap.get(time);
     }
 }
 
