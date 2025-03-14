@@ -9,16 +9,13 @@
  * }
  */
 class Solution {
-    private int getLength(ListNode head) {
-        int len=0;
-        while(head!=null){
-            len++; head=head.next;
+    private ListNode getMiddleNode(ListNode head){
+        ListNode slow= head, fast= head;
+        while(fast.next!=null && fast.next.next!=null){
+            slow= slow.next;
+            fast= fast.next.next;
         }
-        return len;
-    }
-    private ListNode getNode(ListNode head, int n){
-        for(int i=1;i<n;i++) head= head.next;
-        return head;
+        return slow;
     }
     private ListNode reverseLL(ListNode head){
         ListNode curr= head, nxt= null, prev= null;
@@ -39,9 +36,7 @@ class Solution {
     }
     public void reorderList(ListNode head) {
         if(head==null || head.next==null) return ;
-        int len= getLength(head);
-        int half= (len+1)/2;
-        ListNode middle= getNode(head,half);
+        ListNode middle= getMiddleNode(head);
         ListNode right= middle.next;
         ListNode left= head;
         middle.next= null;
