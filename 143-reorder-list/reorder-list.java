@@ -9,42 +9,43 @@
  * }
  */
 class Solution {
-    public ListNode reverseList(ListNode head) {
-        ListNode curr = head, prev = null, nxt = null;
+    private int getLength(ListNode head) {
+        int len=0;
+        while(head!=null){
+            len++; head=head.next;
+        }
+        return len;
+    }
+    private ListNode getNode(ListNode head, int n){
+        for(int i=1;i<n;i++) head= head.next;
+        return head;
+    }
+    private ListNode reverseLL(ListNode head){
+        ListNode curr= head, nxt= null, prev= null;
         while(curr!=null){
-            nxt = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = nxt;
-        }         
+            nxt= curr.next;
+            curr.next= prev;
+            prev= curr;
+            curr= nxt;
+        }
         return prev;
     }
+    private ListNode merge(ListNode A, ListNode B){
+        if(B==null) return A;
+        ListNode nxt= merge(A.next, B.next);
+        B.next= nxt;
+        A.next= B;
+        return A;
+    }
     public void reorderList(ListNode head) {
-        if(head==null || head.next==null) return;
-        ListNode mdl = findMiddle(head);
-        ListNode rgt = mdl.next;
-        rgt = reverseList(rgt);
-        mdl.next = null;
-        head = merge(head, rgt);
-    }
-    private ListNode merge(ListNode lft, ListNode rgt){
-        ListNode ans = new ListNode(0);
-        ListNode nHead = ans;
-        while(lft!=null && rgt!=null){
-            ans.next = lft; lft = lft.next; ans = ans.next;
-            ans.next = rgt; rgt = rgt.next; ans = ans.next;
-        }
-        while(lft!=null){
-            ans.next = lft; lft = lft.next; ans = ans.next;
-        }
-        return nHead.next;
-    }
-    private ListNode findMiddle(ListNode head){
-        ListNode slow = head, fast = head;
-        while(fast.next!=null && fast.next.next!=null){
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-        return slow;
+        if(head==null || head.next==null) return ;
+        int len= getLength(head);
+        int half= (len+1)/2;
+        ListNode middle= getNode(head,half);
+        ListNode right= middle.next;
+        ListNode left= head;
+        middle.next= null;
+        right= reverseLL(right);
+        head= merge(left, right);
     }
 }
