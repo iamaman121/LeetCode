@@ -8,8 +8,7 @@ class Solution {
         boolean[] ans= new boolean[qlen];
         for(int i=0;i<qlen;i++){
             int y= queries[i][1], x= queries[i][0];
-            if(pre[y+1]-pre[x+1]==y-x || y==x) ans[i]= true;
-            else ans[i]= false;
+            ans[i]= pre[y+1]-pre[x+1]==y-x;
         }
         return ans;
     }
