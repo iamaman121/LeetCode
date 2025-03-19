@@ -9,20 +9,20 @@
  */
 
 class Solution {
-    TreeNode lca;
-    private int lowestCommonAncestorUtil(TreeNode root, TreeNode p, TreeNode q) {
-        if(root==null) return 0;
-        int sum= ((root.val==p.val || root.val==q.val)?1:0);
-        sum+= lowestCommonAncestorUtil(root.left, p, q);
-        sum+= lowestCommonAncestorUtil(root.right, p, q);
-        if(sum==2 && lca==null){
-            lca= root;
+    private TreeNode lowestCommonAncestorUtil(TreeNode root, int pval, int qval) {
+        int val= root.val;
+        if(pval>val && qval>val){
+            return lowestCommonAncestorUtil(root.right, pval, qval);
         }
-        return sum;
+        else if(pval<val && qval<val){
+            return lowestCommonAncestorUtil(root.left, pval, qval);
+        }
+        else{
+            return root;
+        }
     }
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        lca= null;
-        lowestCommonAncestorUtil(root, p, q);
-        return lca;
+        
+        return lowestCommonAncestorUtil(root, p.val, q.val);
     }
 }
