@@ -8,37 +8,48 @@
  * }
  */
 public class Codec {
-    private void dfsTraversal(TreeNode root, List<String> res){
-        if(root==null){
-            res.add("N");
-            return;
-        }
-        res.add(String.valueOf(root.val));
-        dfsTraversal(root.left, res);
-        dfsTraversal(root.right, res);
-    }
 
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-        List<String> res = new ArrayList<>();
-        dfsTraversal(root, res);
-        return String.join(",", res);
+        if(root==null) return "N";
+        StringBuilder sb= new StringBuilder();
+        Queue<TreeNode> q= new LinkedList<>();
+        q.add(root);
+        TreeNode curr;
+        while(!q.isEmpty()){
+            curr= q.poll();
+            if(curr!=null){
+                sb.append(curr.val).append(",");
+                q.add(curr.left);
+                q.add(curr.right);
+            }
+            else sb.append("N,");
+        }
+        return sb.toString();
     }
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
         String[] vals= data.split(",");
-        int[] ind= {0};
-        return deserializeDfs(vals, ind);
-    }
-    private TreeNode deserializeDfs(String[] vals, int[] ind){
-        if(vals[ind[0]].equals("N")){
-            ind[0]++;
-            return null;
-        }
-        TreeNode root= new TreeNode(Integer.parseInt(vals[ind[0]++]));
-        root.left= deserializeDfs(vals, ind);
-        root.right= deserializeDfs(vals, ind);
+        if(vals[0].equals("N")) return null;
+        TreeNode root= new TreeNode(Integer.parseInt(vals[0]));
+        int idx=1;
+        Queue<TreeNode> q= new LinkedList<>();
+        q.add(root);
+        TreeNode node;
+        while(!q.isEmpty()){
+            node= q.poll();
+            if(!vals[idx].equals("N")){
+                node.left= new TreeNode(Integer.parseInt(vals[idx]));
+                q.add(node.left);
+            }
+            idx++;
+            if(!vals[idx].equals("N")){
+                node.right= new TreeNode(Integer.parseInt(vals[idx]));
+                q.add(node.right);
+            }
+            idx++;
+        } 
         return root;
     }
 }
