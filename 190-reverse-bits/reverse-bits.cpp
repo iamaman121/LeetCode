@@ -13,9 +13,9 @@ public:
             left/=2;
             right*=2;
         }
-        if((left&n)>0){
-            ans|=right;
-        }
+        // if((left&n)>0){
+        //     ans|=right;
+        // }
         return ans;
     }
 };
