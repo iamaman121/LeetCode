@@ -18,30 +18,32 @@ class Twitter {
         userFeed.get(userId).add(new int[]{time, tweetId});
         if(userFeed.get(userId).size()>10) userFeed.get(userId).remove();
     }
-    private void addTweetsToHeap(PriorityQueue<int[]> maxHeap, int uid){
+    private void addTweetsToHeap(PriorityQueue<int[]> minHeap, int uid){
         if(userFeed.containsKey(uid)){
             Queue<int[]> q= userFeed.get(uid);
             int sz= q.size();
             while(sz-->0){
                 int[] tweet= q.poll();
-                maxHeap.add(tweet);
+                minHeap.add(tweet);
+                if(minHeap.size()>10) minHeap.remove();
                 q.offer(tweet);
             }
         }
     }
     public List<Integer> getNewsFeed(int userId) {
-        PriorityQueue<int[]> maxHeap= new PriorityQueue<>((a,b)->b[0]-a[0]);
-        addTweetsToHeap(maxHeap, userId);
+        PriorityQueue<int[]> minHeap= new PriorityQueue<>((a,b)->a[0]-b[0]);
+        addTweetsToHeap(minHeap, userId);
         if(follows.containsKey(userId)){
             for(int celebId: follows.get(userId)){
-                addTweetsToHeap(maxHeap, celebId);
+                addTweetsToHeap(minHeap, celebId);
             }
         }
         List<Integer> newsFeed= new ArrayList<>();
         for(int i=0;i<10;i++){
-            if(!maxHeap.isEmpty()) newsFeed.add(maxHeap.remove()[1]);
+            if(!minHeap.isEmpty()) newsFeed.add(minHeap.remove()[1]);
         }
-        maxHeap.clear();
+        Collections.reverse(newsFeed);
+        minHeap.clear();
         return newsFeed;
     }
     
