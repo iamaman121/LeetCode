@@ -48,6 +48,7 @@ class Twitter {
     }
     
     public void follow(int followerId, int followeeId) {
+        if(followerId==followeeId) return;
         if(!follows.containsKey(followerId)){
             follows.put(followerId, new HashSet<>());
         }
