@@ -1,18 +1,22 @@
 class Solution {
     public long numberOfPairs(int[] nums1, int[] nums2, int k) {
-        int[] cnt2= new int[1000001];
-        for(int x: nums2) cnt2[x]++;
+        int[] cnt= new int[1000001];
+        for(int x: nums2) cnt[x]++;
+        Arrays.sort(nums2);
+        int[] divcnt= new int[1000001];
+        int prev=-1;
+        for(int val:nums2){
+            if(val==prev) continue;
+            for(int j=val;j<=1000000;j+=val){
+                divcnt[j]+= cnt[val];
+            }
+            prev= val;
+        }
         long ans=0;
         for(int val:nums1){
             if(val%k!=0) continue;
             val/=k;
-            for(int i=1;i*i<=val;i++){
-                if(val%i!=0) continue;
-                ans+= (long)cnt2[i];
-                if(i*i<val){   
-                    ans+= (long)cnt2[val/i];
-                }
-            }
+            ans+= (long)divcnt[val];
         }
         return ans;
     }
