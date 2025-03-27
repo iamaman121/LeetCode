@@ -10,8 +10,8 @@ class Solution {
                 else if(grid[i][j]=='Y') diffXY[i][j]=-1;
                 else{
                     dot++;
-                    cntDot[j]+= dot;
                 }
+                cntDot[j]+= dot;
                 if(i>=1) diffXY[i][j]+=diffXY[i-1][j];
                 if(j>=1) diffXY[i][j]+=diffXY[i][j-1];
                 if(i>=1 && j>=1) diffXY[i][j]-=diffXY[i-1][j-1];
