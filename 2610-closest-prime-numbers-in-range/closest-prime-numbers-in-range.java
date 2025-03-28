@@ -1,6 +1,7 @@
 class Solution {
     public int[] closestPrimes(int left, int right) {
-        if(right<2) return new int[]{-1,-1};
+        int[] ans= new int[]{-1,-1};
+        if(right<2) return ans;
         int n= right;
         boolean[] isPrime= new boolean[n+1];
         for(int i=3;i<=n;i+=2) isPrime[i]= true;
@@ -12,7 +13,6 @@ class Solution {
                 }
             }
         }
-        int[] ans= new int[]{-1,-1};
         int prev=-1;
         for(int i=left;i<=right;i++){
             if(isPrime[i]){
