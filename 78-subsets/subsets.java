@@ -10,8 +10,8 @@ class Solution {
         generateSubSets(nums, i+1, curr, ans);
     }
     public List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> ans= new ArrayList<>();
         List<Integer> curr= new ArrayList<>();
+        List<List<Integer>> ans= new ArrayList<>();
         generateSubSets(nums, 0, curr, ans);
         return ans;
     }
