@@ -1,26 +1,23 @@
 class Solution {
-    public int singleNonDuplicate(int[] arr) {
-        int n = arr.length;
-        if(n==1 || arr[0]!=arr[1]){
-            return arr[0];
-        }
-        if(arr[n-1]!=arr[n-2]){
-            return arr[n-1];
-        }
-        int lo = 2, hi = n-3, mid;
-        while(lo<=hi){
-            mid = lo+(hi-lo)/2;
-            if(arr[mid]!=arr[mid-1] && arr[mid]!=arr[mid+1]){
-                return arr[mid];
-            }
-            if(arr[mid]==arr[mid-1]){
-                mid--;
-            }
-            if(mid%2==0){
-                lo = mid+2;
-            }
-            else{
-                hi = mid-1;
+    public int singleNonDuplicate(int[] nums) {
+        int n= nums.length;
+        if(n==1 || nums[0]!=nums[1]) return nums[0];
+        else if(nums[n-2]!=nums[n-1]) return nums[n-1];
+        else{
+            int lo=1, hi= n-2, mid;
+            while(lo<=hi){
+                mid= lo+(hi-lo)/2;
+                if(mid%2==1){
+                    mid--;
+                }
+
+                if(nums[mid]==nums[mid+1]){
+                    lo= mid+2;
+                }
+                else{
+                    if(nums[mid]!=nums[mid-1]) return nums[mid];
+                    else hi= mid-2;
+                }
             }
         }
         return -1;
