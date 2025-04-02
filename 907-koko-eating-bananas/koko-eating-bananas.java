@@ -11,14 +11,13 @@ class Solution {
     public int minEatingSpeed(int[] piles, int h) {
         int lo= 1, hi= piles[0], mid, ans= -1;
         for(int val:piles) if(val>hi) hi= val;
-        while(lo<=hi){
+        while(lo<hi){
             mid= (lo+hi)/2;
-            if(calculateTime(piles, mid)<=h){
-                ans= mid;
-                hi= mid-1;
+            if(calculateTime(piles, mid)>h){
+                lo= mid+1;
             }
-            else lo= mid+1;
+            else hi=mid;
         }
-        return ans;
+        return lo;
     }
 }
