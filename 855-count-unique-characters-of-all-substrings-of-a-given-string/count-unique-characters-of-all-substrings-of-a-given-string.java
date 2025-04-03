@@ -5,21 +5,25 @@ class Solution {
         for(int i=0;i<s.length();i++){
             indexes.get(s.charAt(i)-'A').add(i);
         }
-        int[] ptr= new int[26];
-        int ans=0;
+        int ans=0, left, right;
         List<Integer> temp;
-        for(int i=0;i<s.length();i++){
-            for(int j=0;j<26;j++){
-                temp= indexes.get(j);
-                if(temp.size()==0) continue;
-                else if(ptr[j]==temp.size()-1){
-                    ans+= s.length()-temp.get(ptr[j]);
+        for(int alp=0;alp<26;alp++){
+            temp= indexes.get(alp);
+            for(int i=0;i<temp.size();i++){
+                if(i==0){
+                    left= temp.get(i)+1;
                 }
-                else if(ptr[j]<temp.size()-1){
-                    ans+= temp.get(ptr[j]+1)-temp.get(ptr[j]);
+                else{
+                    left= temp.get(i)-temp.get(i-1);
                 }
+                if(i==temp.size()-1){
+                    right= s.length()-temp.get(i);
+                }
+                else{
+                    right= temp.get(i+1)-temp.get(i);
+                }
+                ans+= left*right;
             }
-            ptr[s.charAt(i)-'A']++;
         }
         return ans;
     }
