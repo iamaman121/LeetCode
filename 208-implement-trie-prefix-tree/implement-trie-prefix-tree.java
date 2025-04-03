@@ -1,49 +1,50 @@
+class TrieNode{
+    HashMap<Character,TrieNode> children = new HashMap<>();
+    boolean isEnd= false;
+}
 class Trie {
     TrieNode root;
+
     public Trie() {
         root= new TrieNode();
     }
     
     public void insert(String word) {
         TrieNode curr= root;
-        for(int i=0;i<word.length();i++){
-            char ch= word.charAt(i);
-            if(curr.child[ch-'a']==null){
-                curr.child[ch-'a']= new TrieNode();
+        for(char ch: word.toCharArray()){
+            if(!curr.children.containsKey(ch)){
+                curr.children.put(ch, new TrieNode());
             }
-            curr= curr.child[ch-'a'];
+            curr= curr.children.get(ch);
         }
-        curr.endOfWord= true;
+        curr.isEnd= true;
     }
     
     public boolean search(String word) {
         TrieNode curr= root;
-        for(int i=0;i<word.length();i++){
-            char ch= word.charAt(i);
-            if(curr.child[ch-'a']==null){
+        for(char ch: word.toCharArray()){
+            if(!curr.children.containsKey(ch)){
                 return false;
             }
-            curr= curr.child[ch-'a'];
+            else{
+                curr= curr.children.get(ch);
+            }
         }
-        return curr.endOfWord;
+        return curr.isEnd;
     }
     
-    public boolean startsWith(String word) {
+    public boolean startsWith(String prefix) {
         TrieNode curr= root;
-        for(int i=0;i<word.length();i++){
-            char ch= word.charAt(i);
-            if(curr.child[ch-'a']==null){
+        for(char ch: prefix.toCharArray()){
+            if(!curr.children.containsKey(ch)){
                 return false;
             }
-            curr= curr.child[ch-'a'];
+            else{
+                curr= curr.children.get(ch);
+            }
         }
         return true;
     }
-}
-
-class TrieNode{
-    TrieNode[] child= new TrieNode[26];
-    boolean endOfWord= false;
 }
 
 /**
