@@ -8,8 +8,7 @@ class Solution {
             if(curr==ugly[m2]*2) m2++;
             if(curr==ugly[m3]*3) m3++;
             if(curr==ugly[m5]*5) m5++;
-            if(ugly[j-1]== curr) continue;
-            else ugly[j++]= curr;
+            ugly[j++]= curr;
         }
         return ugly[n-1];
     }
