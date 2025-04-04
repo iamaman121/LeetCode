@@ -1,17 +1,16 @@
 class Solution {
     public int nthUglyNumber(int n) {
-        List<Integer> twoPtr= new ArrayList<>();
-        List<Integer> threePtr= new ArrayList<>();
-        List<Integer> FivePtr= new ArrayList<>();
-        twoPtr.add(1); threePtr.add(1); FivePtr.add(1); 
-        int i=0, j=0, k=0, prev=1;
-        while(n-->0){
-            prev= Math.min(FivePtr.get(k), Math.min(twoPtr.get(i), threePtr.get(j)));
-            while(i<twoPtr.size() && twoPtr.get(i)<=prev) ++i;
-            while(j<threePtr.size() && threePtr.get(j)<=prev) ++j;
-            while(k<FivePtr.size() && FivePtr.get(k)<=prev) ++k;
-            twoPtr.add(prev*2);threePtr.add(prev*3);FivePtr.add(prev*5);
+        int[] ugly= new int[n];
+        ugly[0]=1; 
+        int j=1, m2=0, m3=0, m5=0;
+        while(j<n){
+            int curr= Math.min(ugly[m2]*2,Math.min(ugly[m3]*3,ugly[m5]*5));
+            if(curr==ugly[m2]*2) m2++;
+            if(curr==ugly[m3]*3) m3++;
+            if(curr==ugly[m5]*5) m5++;
+            if(ugly[j-1]== curr) continue;
+            else ugly[j++]= curr;
         }
-        return prev;
+        return ugly[n-1];
     }
 }
