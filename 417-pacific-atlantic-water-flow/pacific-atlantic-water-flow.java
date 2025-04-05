@@ -1,43 +1,37 @@
 class Solution {
     int n,m;
-    boolean[][] A,P;
-    int dir[]= {0,-1,0,1,0};
-    private boolean isOk(int r, int c){
+    int[] dir= {0,-1,0,1,0};
+    private boolean ok(int r, int c){
         return r>=0 && r<n && c>=0 && c<m;
     }
-    private void dfs(int[][] ht, int r, int c, boolean[][] vis){
+    private void dfs(int r, int c, int[][] ht, boolean[][] vis){
         vis[r][c]= true;
+        int nr, nc;
         for(int i=0;i<4;i++){
-            int nr= r+dir[i], nc= c+dir[i+1];
-            if(isOk(nr, nc) && ht[nr][nc]>=ht[r][c] && !vis[nr][nc]){
-                // vis[nr][nc]= true;
-                dfs(ht, nr, nc, vis);
+            nr= r+dir[i]; nc=c+dir[i+1];
+            if(ok(nr,nc) && !vis[nr][nc] && ht[nr][nc]>=ht[r][c]){
+                dfs(nr, nc, ht, vis);
             }
         }
     }
     public List<List<Integer>> pacificAtlantic(int[][] ht) {
         n= ht.length; m= ht[0].length;
-        A= new boolean[n][m]; P= new boolean[n][m];
+        boolean[][] A= new boolean[n][m];
+        boolean[][] P= new boolean[n][m];
         for(int i=0;i<n;i++){
-            // A[i][m-1]= true;
-            dfs(ht, i, m-1, A);
-            // P[i][0]= true;
-            dfs(ht, i, 0, P);
+            dfs(i, 0, ht, P);
+            dfs(i, m-1, ht, A);
         }
         for(int j=0;j<m;j++){
-            // A[n-1][j]= true;
-            dfs(ht, n-1, j, A);
-            // P[0][j]= true;
-            dfs(ht, 0, j, P);
+            dfs(0, j, ht, P);
+            dfs(n-1, j, ht, A);
         }
-        List<List<Integer>> ans= new ArrayList<>();
+        List<List<Integer>> res = new ArrayList<>();
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(A[i][j] && P[i][j]){
-                    ans.add(Arrays.asList(i,j));
-                }
+                if(A[i][j] && P[i][j]) res.add(Arrays.asList(i, j));
             }
         }
-        return ans;
+        return res;
     }
 }
