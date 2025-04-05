@@ -21,19 +21,20 @@ class Node {
 class Solution {
     public Node cloneGraph(Node node) {
         if(node==null) return null;
-        Map<Node,Node> oldToNew = new HashMap<>();
+        Map<Node,Node> nodeCopy = new HashMap<>();
         Queue<Node> q = new LinkedList<>();
-        q.add(node); oldToNew.put(node, new Node(node.val));
+        q.add(node); nodeCopy.put(node, new Node(node.val));
+        Node curr, clone;
         while(!q.isEmpty()){
-            Node cur= q.remove();
-            for(Node nb: cur.neighbors){
-                if(!oldToNew.containsKey(nb)){
-                    oldToNew.put(nb, new Node(nb.val));
+            curr= q.remove(); clone= nodeCopy.get(curr);
+            for(Node nb: curr.neighbors){
+                if(!nodeCopy.containsKey(nb)){
+                    nodeCopy.put(nb, new Node(nb.val));
                     q.add(nb);
                 }
-                oldToNew.get(cur).neighbors.add(oldToNew.get(nb));
+                clone.neighbors.add(nodeCopy.get(nb));
             }
         }
-        return oldToNew.get(node);
+        return nodeCopy.get(node);
     }
 }
