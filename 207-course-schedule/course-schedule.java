@@ -3,9 +3,8 @@ class Solution {
         System.out.println(s);
         vis[s]= 1;
         for(int d: adj.get(s)){
-            if(vis[d]==1) return false;
-            else if(vis[d]==2) continue;
-            if(!dfs(d, adj, vis)) return false;
+            if(vis[d]==2) continue;
+            if(vis[d]==1 || !dfs(d, adj, vis)) return false;
         }
         vis[s]=2;
         return true;
