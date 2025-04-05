@@ -19,19 +19,19 @@ class Node {
 */
 
 class Solution {
-    HashMap<Node,Node> getClone= new HashMap<>();
-    HashSet<Node> vis= new HashSet<>();
+    Map<Node,Node> cloned= new HashMap<>();
     public Node cloneGraph(Node node) {
         if(node==null) return null;
-        if(vis.contains(node)){
-            return getClone.get(node);
+        else if(cloned.containsKey(node)){
+            return cloned.get(node);
         }
-        vis.add(node);
-        Node clone = new Node(node.val);
-        getClone.put(node,clone);
-        for(Node n: node.neighbors){
-            clone.neighbors.add(cloneGraph(n));
+        else{
+            Node clone= new Node(node.val);
+            cloned.put(node, clone);
+            for(Node nb: node.neighbors){
+                clone.neighbors.add(cloneGraph(nb));
+            }
+            return clone;
         }
-        return clone;
     }
 }
