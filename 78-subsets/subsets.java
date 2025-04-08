@@ -1,18 +1,18 @@
 class Solution {
-    private void generateSubSets(int[] nums, int i, List<Integer> curr, List<List<Integer>> ans){
-        if(i==nums.length){
+    private void generateAllSubsets(int idx, int[] nums, List<Integer> curr, List<List<Integer>> ans){
+        if(idx==nums.length){
             ans.add(new ArrayList<>(curr));
             return;
         }
-        curr.add(nums[i]);
-        generateSubSets(nums, i+1, curr, ans);
+        curr.add(nums[idx]);
+        generateAllSubsets(idx+1, nums, curr, ans);
         curr.remove(curr.size()-1);
-        generateSubSets(nums, i+1, curr, ans);
+        generateAllSubsets(idx+1, nums, curr, ans);
     }
     public List<List<Integer>> subsets(int[] nums) {
-        List<Integer> curr= new ArrayList<>();
-        List<List<Integer>> ans= new ArrayList<>();
-        generateSubSets(nums, 0, curr, ans);
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> curr = new ArrayList<>();
+        generateAllSubsets(0, nums, curr, ans);
         return ans;
     }
 }
