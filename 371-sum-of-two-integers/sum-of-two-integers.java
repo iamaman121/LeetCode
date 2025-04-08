@@ -1,13 +1,10 @@
 class Solution {
     public int getSum(int a, int b) {
-        int ans=0, carry=0;
-        for(int i=0;i<32;i++){
-            int aBit= (a>>i)&1;
-            int bBit= (b>>i)&1;
-            int cBit= aBit^bBit^carry;
-            carry= (aBit+bBit+carry)>=2?1:0;
-            ans|= cBit<<i;
+        while(b!=0){
+            int carry= (a&b)<<1;
+            a=a^b;
+            b= carry;
         }
-        return ans;
+        return a;
     }
 }
