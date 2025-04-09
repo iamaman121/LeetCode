@@ -1,30 +1,25 @@
 class Solution {
-    
-    private void generateParenthesisUtil(int op, int cl, int n, StringBuilder sb, List<String> ans){
-        if(cl==n){
-            ans.add(sb.toString());
-            return;
-        }
-        if(op==cl){
-            sb.append('(');
-            generateParenthesisUtil(op+1, cl, n, sb, ans);
-            sb.deleteCharAt(sb.length()-1);
-        }
-        else{
-            if(op<n){
-                sb.append('(');
-                generateParenthesisUtil(op+1, cl, n, sb, ans);
-                sb.deleteCharAt(sb.length()-1);
-            }
-            sb.append(')');
-            generateParenthesisUtil(op, cl+1, n, sb, ans);
-            sb.deleteCharAt(sb.length()-1);
-        }
-    }
     public List<String> generateParenthesis(int n) {
-        List<String> ans= new ArrayList<>();
-        StringBuilder sb= new StringBuilder();
-        generateParenthesisUtil(0, 0, n, sb, ans);
-        return ans;
+        List<List<String>> dp = new ArrayList<>();
+        dp.add(Arrays.asList(""));
+        dp.add(Arrays.asList("()"));
+        for(int i=2;i<=n;i++){
+            dp.add(new ArrayList<>());
+            int inn= i-1, out=0;
+            while(out<i){
+                for(String inner : dp.get(inn)){
+                    for(String outer : dp.get(out)){
+                        StringBuilder sb= new StringBuilder();
+                        sb.append('(');
+                        sb.append(inner);
+                        sb.append(')');
+                        sb.append(outer);
+                        dp.get(i).add(sb.toString());
+                    }
+                }
+                inn--; out++;
+            }
+        }
+        return dp.get(n);
     }
 }
