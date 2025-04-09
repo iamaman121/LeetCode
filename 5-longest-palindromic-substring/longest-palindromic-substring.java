@@ -1,26 +1,28 @@
 class Solution {
+    private int getLen(int lft, int rgt, String s){
+        while(lft>=0 && rgt<s.length() && s.charAt(lft)==s.charAt(rgt)){
+            lft--; rgt++;
+        }
+        return rgt-lft-1;
+    }
     public String longestPalindrome(String s) {
-        int idx=0, mlen=1, n= s.length();
-        boolean[][] lps= new boolean[n][n];
-        for(int i=0;i<n;i++) lps[i][i]= true;
-        for(int i=0;i<=n-2;i++){
-            if(s.charAt(i)!=s.charAt(i+1)) continue;
-            lps[i][i+1]= true;
-            if(mlen<2){
-                mlen=2;
-                idx=i;
+        int[] ans= new int[]{0,0};
+        for(int i=0;i<s.length();i++){
+            //odd length
+            int oddLen= getLen(i,i,s);
+            if(oddLen>ans[1]-ans[0]+1){
+                int dist= oddLen/2;
+                ans[0]= i-dist;
+                ans[1]= i+dist;
+            }
+            //even length
+            int evenLen= getLen(i,i+1,s);
+            if(evenLen>ans[1]-ans[0]+1){
+                int dist= evenLen/2 -1;
+                ans[0]= i-dist;
+                ans[1]= i+1+dist;
             }
         }
-        for(int len=3;len<=n;len++){
-            for(int i=0;i<=n-len;i++){
-                if(s.charAt(i)!=s.charAt(i+len-1) || !lps[i+1][i+len-2]) continue;
-                lps[i][i+len-1]= true;
-                if(mlen<len){
-                    mlen=len;
-                    idx=i;
-                }
-            }
-        }
-        return s.substring(idx, idx+mlen);
+        return s.substring(ans[0], ans[1]+1);
     }
 }
