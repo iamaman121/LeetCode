@@ -1,25 +1,30 @@
 class Solution {
-    public List<String> generateParenthesis(int n) {
-        List<String>[] dp = new List[n+1];
-        dp[0]= Arrays.asList("");
-        dp[1]= Arrays.asList("()");
-        for(int i=2;i<=n;i++){
-            int inner=i-1, outer=0;
-            dp[i]= new ArrayList<>();
-            while(inner>=0){
-                for(String in:dp[inner]){
-                    for(String out:dp[outer]){
-                        StringBuilder sb = new StringBuilder();
-                        sb.append("(");
-                        sb.append(in);
-                        sb.append(")");
-                        sb.append(out);
-                        dp[i].add(sb.toString());
-                    }
-                }
-                inner--;outer++;
-            }
+    
+    private void generateParenthesisUtil(int op, int cl, int n, StringBuilder sb, List<String> ans){
+        if(cl==n){
+            ans.add(sb.toString());
+            return;
         }
-        return dp[n];
+        if(op==cl){
+            sb.append('(');
+            generateParenthesisUtil(op+1, cl, n, sb, ans);
+            sb.deleteCharAt(sb.length()-1);
+        }
+        else{
+            if(op<n){
+                sb.append('(');
+                generateParenthesisUtil(op+1, cl, n, sb, ans);
+                sb.deleteCharAt(sb.length()-1);
+            }
+            sb.append(')');
+            generateParenthesisUtil(op, cl+1, n, sb, ans);
+            sb.deleteCharAt(sb.length()-1);
+        }
+    }
+    public List<String> generateParenthesis(int n) {
+        List<String> ans= new ArrayList<>();
+        StringBuilder sb= new StringBuilder();
+        generateParenthesisUtil(0, 0, n, sb, ans);
+        return ans;
     }
 }
