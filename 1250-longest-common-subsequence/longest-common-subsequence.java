@@ -7,8 +7,9 @@ class Solution {
                 if(text1.charAt(i-1)==text2.charAt(j-1)){
                     lcs[i%2][j]=lcs[1-i%2][j-1]+1;
                 }
-                res= Math.max(lcs[1-i%2][j],lcs[i%2][j-1]);
-                if(res>lcs[i%2][j]) lcs[i%2][j]= res;
+                else{
+                    lcs[i%2][j]= Math.max(lcs[1-i%2][j],lcs[i%2][j-1]);
+                }
             }
         }
         return lcs[n1%2][n2];
