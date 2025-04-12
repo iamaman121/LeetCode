@@ -11,7 +11,6 @@ class Solution {
             if(intervals[j][0]>=intervals[i][1]){
                 intervals[++i]= intervals[j];
             }
-            // else cnt++;
             j++;
         }
         return n-1-i;
