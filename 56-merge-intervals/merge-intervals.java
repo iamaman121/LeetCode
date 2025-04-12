@@ -4,12 +4,11 @@ class Solution {
         int i=0, j=1, n= intervals.length;
         while(j<n){
             if(intervals[j][0]>intervals[i][1]){
-                intervals[++i]= intervals[j];
+                intervals[++i]= intervals[j++];
             }
             else{
-                intervals[i][1]= Math.max(intervals[i][1], intervals[j][1]);
+                intervals[i][1]= Math.max(intervals[i][1], intervals[j++][1]);
             }
-            j++;
         }
         int[][] ans= new int[i+1][2];
         for(j=0;j<=i;j++) ans[j]= intervals[j];
