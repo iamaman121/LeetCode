@@ -12,7 +12,6 @@ class Solution {
                 intervals[++i]= intervals[j];
             }
             else{
-                intervals[i][0]= Math.min(intervals[i][0], intervals[j][0]);
                 intervals[i][1]= Math.max(intervals[i][1], intervals[j][1]);
             }
             j++;
