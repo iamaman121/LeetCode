@@ -20,8 +20,8 @@ class Solution {
         if(idx==-1) reverse(nums, 0, n-1);
         else{
             int justLargerIdx= idx+1;
-            for(int j=n-1;j>idx+1;j--){
-                if(nums[j]>nums[idx] && nums[j]<=nums[justLargerIdx]){
+            for(int j=n-1;j>idx;j--){
+                if(nums[j]>nums[idx]){
                     justLargerIdx= j; break;
                 }
             }
