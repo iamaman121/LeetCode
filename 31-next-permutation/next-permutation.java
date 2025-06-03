@@ -19,11 +19,13 @@ class Solution {
         }
         if(idx==-1) reverse(nums, 0, n-1);
         else{
-            int nextBigNumIdx= idx+1;
-            for(int j=idx+2;j<n;j++){
-                if(nums[j]>nums[idx] && nums[j]<=nums[nextBigNumIdx]) nextBigNumIdx= j;
+            int justLargerIdx= idx+1;
+            for(int j=n-1;j>idx+1;j--){
+                if(nums[j]>nums[idx] && nums[j]<=nums[justLargerIdx]){
+                    justLargerIdx= j; break;
+                }
             }
-            swap(nums, idx, nextBigNumIdx);
+            swap(nums, idx, justLargerIdx);
             reverse(nums, idx+1, n-1);
         }
     }
