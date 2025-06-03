@@ -8,8 +8,7 @@ class Solution {
         int ptr0= 0, ptr= 0, ptr2= nums.length-1;
         while(ptr<=ptr2){
             if(nums[ptr]==0){
-                swap(nums, ptr0++, ptr);
-                if(ptr<ptr0) ptr= ptr0;
+                swap(nums, ptr0++, ptr++);
             }
             else if(nums[ptr]==2){
                 swap(nums, ptr, ptr2--);
