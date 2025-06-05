@@ -15,5 +15,6 @@ class Solution {
         while(j>=0){
             nums1[k--]= nums2[j--];
         }
+        for(j=0;j<n;j++) nums2[j]= 0;
     }
 }
