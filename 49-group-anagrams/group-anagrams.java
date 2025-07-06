@@ -1,14 +1,11 @@
 class Solution {
-    private String sortString(String str){
-        char[] currArr = str.toCharArray();
-        Arrays.sort(currArr);
-        return new String(currArr);
-    }
     public List<List<String>> groupAnagrams(String[] strs) {
         Map<String,List<String>> anagramsMap = new HashMap<>();
-        String currStr;
+        String currStr; char[] currArr;
         for(String str:strs){ 
-            currStr = sortString(str);
+            currArr = str.toCharArray();
+            Arrays.sort(currArr);
+            currStr = new String(currArr);
             List<String> anagrams = anagramsMap.getOrDefault(currStr, new ArrayList<>());
             anagrams.add(str);
             anagramsMap.put(currStr, anagrams);
