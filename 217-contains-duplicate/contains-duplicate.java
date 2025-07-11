@@ -1,11 +1,10 @@
+//https://leetcode.com/problems/contains-duplicate/description/
 class Solution {
     public boolean containsDuplicate(int[] nums) {
-        Set<Integer> store = new HashSet<>();
+        HashSet<Integer> seen = new HashSet<>();
         for(int num : nums){
-            if(store.contains(num)){
-                return true;
-            }
-            store.add(num);
+            if(seen.contains(num)) return true;
+            seen.add(num);
         }
         return false;
     }
