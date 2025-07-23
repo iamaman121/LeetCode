@@ -1,10 +1,12 @@
+// https://leetcode.com/problems/set-matrix-zeroes/description/
 class Solution {
     public void setZeroes(int[][] matrix) {
+        if(matrix.length==0 || matrix[0].length==0) return;
         int rows = matrix.length, cols = matrix[0].length;
-        boolean zerothRowValue = true;
+        boolean isFirstRowZero = false;
         for(int i=0;i<cols;i++){
             if(matrix[0][i]==0){
-                zerothRowValue = false;
+                isFirstRowZero = true;
                 break;
             }
         }
@@ -22,7 +24,7 @@ class Solution {
                 if(matrix[i][0]==0 || matrix[0][j]==0) matrix[i][j]=0;
             }
         }
-        if(!zerothRowValue){
+        if(isFirstRowZero){
             for(int i=0;i<cols;i++){
                 matrix[0][i]=0;
             }
