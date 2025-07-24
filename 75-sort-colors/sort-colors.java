@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/sort-colors/description/
 class Solution {
     private void swap(int[] nums, int i, int j){
         int temp = nums[i];
@@ -9,9 +10,8 @@ class Solution {
         int p0= 0, p2= n-1, curr= 0;
         while(curr<=p2){
             if(nums[curr]==0){
-                swap(nums, p0, curr);
-                p0++; 
-                if(curr<=p0) curr= p0;
+                swap(nums, p0++, curr++);
+                
             }
             else if(nums[curr]==1){
                 curr++;
