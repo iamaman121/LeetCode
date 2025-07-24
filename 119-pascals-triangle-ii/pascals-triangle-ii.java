@@ -1,17 +1,11 @@
 class Solution {
-    private long nCr(int n, int r){
-        r= Math.min(r, n-r);
-        long ans=1;
-        for(int i=1;i<=r;i++){
-            ans=(ans*(n-i+1))/i;
-        }
-        return ans;
-    }
     public List<Integer> getRow(int rowIndex) {
-        List<Integer> result = new ArrayList<>();
-        for(int i=0;i<=rowIndex;i++){
-            result.add((int)nCr(rowIndex, i));
+        List<Integer> row = new ArrayList<>(rowIndex+1);
+        if(rowIndex<0) return row;
+        row.add(1);
+        for(int i=1;i<=rowIndex;i++){
+            row.add((int)(((long)row.get(i-1)*(rowIndex-i+1))/i));
         }
-        return result;
+        return row;
     }
 }
