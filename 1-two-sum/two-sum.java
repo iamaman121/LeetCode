@@ -1,20 +1,18 @@
-import java.util.HashMap;
-import java.util.Map;
-
 class Solution {
     public int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> indexMap = new HashMap<>();
-
-        for (int i = 0; i < nums.length; i++) {
+        int[] ans = new int[2];
+        HashMap<Integer,Integer> hm = new HashMap<>();
+        for(int i=0;i<nums.length;i++){
             int complement = target - nums[i];
-
-            if (indexMap.containsKey(complement)) {
-                return new int[] { indexMap.get(complement), i };
+            if(hm.containsKey(complement)){
+                ans[0]= hm.get(complement);
+                ans[1]= i;
+                break;
             }
-
-            indexMap.put(nums[i], i);
+            else{
+                hm.put(nums[i], i);
+            }
         }
-
-        throw new IllegalArgumentException("No two sum solution found");
+        return ans;
     }
 }
