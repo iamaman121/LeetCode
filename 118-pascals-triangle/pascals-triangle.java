@@ -1,16 +1,16 @@
 class Solution {
     public List<List<Integer>> generate(int numRows) {
-        List<Integer> prevRow = new ArrayList<>();
-        List<List<Integer>> rows = new ArrayList<>();
-        for(int row=0; row<numRows; row++){
-            List<Integer> currRow = new ArrayList<>(prevRow);
-            currRow.add(1);
-            for(int col=currRow.size()-2; col>0; col--){
-                currRow.set(col, currRow.get(col)+currRow.get(col-1));
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> curr= Arrays.asList(1);
+        ans.add(curr);
+        for(int i=1;i<numRows;i++){
+            curr= new ArrayList<>(ans.get(i-1));
+            curr.add(1);
+            for(int j=curr.size()-2;j>0;j--){
+                curr.set(j, curr.get(j)+curr.get(j-1));
             }
-            rows.add(currRow);
-            prevRow = currRow;
+            ans.add(curr);
         }
-        return rows;
+        return ans;
     }
 }
