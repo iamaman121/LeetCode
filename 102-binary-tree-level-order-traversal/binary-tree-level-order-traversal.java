@@ -15,25 +15,25 @@
  */
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> bfsTraversal= new ArrayList<>();
-        if(root==null) return bfsTraversal;
-        Queue<TreeNode> q= new LinkedList<>();
-        q.offer(root);
-        List<Integer> level;
+        List<List<Integer>> levelOrderList = new ArrayList<>();
+        Queue<TreeNode> q = new LinkedList<>();
+        if(root==null) return levelOrderList;
+        q.add(root);
         while(!q.isEmpty()){
-            int sz= q.size();
-            TreeNode curr, lft, rgt;
-            level= new ArrayList<>();
-            while(sz-->0){
-                curr= q.poll();
-                level.add(curr.val);
-                lft= curr.left;
-                rgt= curr.right;
-                if(lft!=null) q.offer(lft);
-                if(rgt!=null) q.offer(rgt);
+            int siz = q.size();
+            List<Integer> temp = new ArrayList<>();
+            while(siz-->0){
+                TreeNode rem = q.remove();
+                temp.add(rem.val);
+                if(rem.left!=null){
+                    q.add(rem.left);
+                }
+                if(rem.right!=null){
+                    q.add(rem.right);
+                }
             }
-            bfsTraversal.add(level);
+            levelOrderList.add(temp);
         }
-        return bfsTraversal;
+        return levelOrderList;
     }
 }
