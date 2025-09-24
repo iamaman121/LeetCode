@@ -19,6 +19,7 @@ class Solution {
         while(!q.isEmpty()){
             int rem= q.remove();
             for(int d: graph.get(rem)){
+                if(d==des) return true;
                 if(vis[d]) continue;
                 q.add(d); vis[d]= true;
             }
