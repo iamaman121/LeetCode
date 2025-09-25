@@ -19,9 +19,8 @@ class Solution {
                 }
             }
         }
-        int time= -1;
+        int time= 0;
         while(!q.isEmpty()){
-            time++;
             int siz= q.size();
             while(siz-->0){
                 Pair rem= q.remove();
@@ -32,8 +31,8 @@ class Solution {
                     q.add(new Pair(x, y));
                 }
             }
+            if(!q.isEmpty()) time++;
         }
-        if(time==-1) time++;
         for(int i=0;i<r;i++){
             for(int j=0;j<c;j++){
                 if(grid[i][j]==1){
