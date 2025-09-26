@@ -1,28 +1,36 @@
 class Solution {
-    private boolean dfs(int s, List<List<Integer>> adj, int[] vis){
-        System.out.println(s);
-        vis[s]= 1;
-        for(int d: adj.get(s)){
-            if(vis[d]==2) continue;
-            if(vis[d]==1 || !dfs(d, adj, vis)) return false;
+    private List<List<Integer>> constructGraph(int n, int[][] prereq){
+        List<List<Integer>> graph = new ArrayList<>();
+        for(int i=0;i<n;i++) graph.add(new ArrayList<>());
+        for(int[] edge: prereq){
+            int v= edge[0], u= edge[1];
+            graph.get(u).add(v);
         }
-        vis[s]=2;
-        return true;
+        return graph;
     }
-    public boolean canFinish(int n, int[][] prereq) {
-        List<List<Integer>> adj= new ArrayList<>();
-        for(int i=0;i<n;i++){
-            adj.add(new ArrayList<>());
-        }
-        int[] vis= new int[n];
-        for(int[] pr: prereq){
-            adj.get(pr[0]).add(pr[1]);
-        }
-        for(int i=0;i<n;i++){
-            if(vis[i]==0 && !dfs(i, adj, vis)){
-                return false;
+    public boolean canFinish(int n, int[][] prerequisites) {
+        List<List<Integer>> graph= constructGraph(n, prerequisites);
+        int[] indeg = new int[n];
+        for(int s=0;s<n;s++){
+            for(int d: graph.get(s)){
+                indeg[d]++;
             }
         }
-        return true;
+        Queue<Integer> q= new LinkedList<>();
+        for(int s=0;s<n;s++){
+            if(indeg[s]==0) q.add(s);
+        }
+        int count=0;
+        while(!q.isEmpty()){
+            int s= q.remove();
+            count++;
+            for(int d: graph.get(s)){
+                indeg[d]--;
+                if(indeg[d]==0){
+                    q.add(d);
+                }
+            }
+        }
+        return count==n;
     }
 }
