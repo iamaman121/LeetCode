@@ -1,24 +1,14 @@
 class Solution {
     public int maxProduct(int[] nums) {
-        int pmax= 0, pmin= 0, cmax, cmin, ans=nums[0] ;
-        for(int num: nums){
-            if(num>0){
-                cmax=pmax*num;
-                cmin=pmin*num;
-                if(cmax==0) cmax= num;
-            }
-            else if(num<0){
-                cmax= pmin*num;
-                cmin= pmax*num;
-                if(cmin==0) cmin= num;
-            }
-            else{
-                if(ans<0) ans=0;
-                cmax=0; cmin=0;
-            }
-            if(cmax>0 && ans<cmax) ans= cmax;
-            pmin= cmin; pmax= cmax;
+        int n= nums.length;
+        int pre= 0, suff= 0, maxm= Integer.MIN_VALUE;
+        for(int i=0;i<n;i++){
+            if(pre==0) pre=1;
+            if(suff==0) suff=1;
+            pre*= nums[i];
+            suff*= nums[n-1-i];
+            maxm= Math.max(maxm, Math.max(pre, suff));
         }
-        return ans;
+        return maxm;
     }
 }
