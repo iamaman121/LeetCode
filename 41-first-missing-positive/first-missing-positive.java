@@ -2,7 +2,7 @@ class Solution {
     public int firstMissingPositive(int[] nums) {
         int n= nums.length;
         for(int i=0;i<n;i++){
-            if(nums[i]<=0) nums[i]= n+5;
+            if(nums[i]<=0) nums[i]= n+1;
         }
         for(int i=0;i<n;i++){
             int val= Math.abs(nums[i]);
