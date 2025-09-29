@@ -1,41 +1,33 @@
 class Solution {
     public int nextGreaterElement(int n) {
-        int nod= 0, m= n;
-        while(m>0){
-            m/=10;
-            nod++;
-        }
-        int[] arr= new int[nod];
-        m= n;
-        for(int i=nod-1;i>=0;i--){
-            arr[i]= m%10;
-            m/=10;
-        }
-        boolean f= false;
-        for(int i= nod-2;i>=0;i--){
-            if(arr[i]<arr[i+1]){
-                f= true;
-                int j= i+1;
-                for(int k= i+2;k<nod;k++){
-                    if(arr[k]>arr[i] && arr[k]<arr[j]){
-                        j= k;
-                    }
-                }
-                int temp= arr[i];
-                arr[i]= arr[j];
-                arr[j]= temp;
-                Arrays.sort(arr, i+1, nod);
+        char[] num= (n+"").toCharArray();
+        int idx= -1;
+        for(int i=num.length-2;i>=0;i--){
+            if(num[i]<num[i+1]){
+                idx=i;
                 break;
             }
         }
-        if(f){
-            long ans=0;
-            for(int a: arr){
-                ans= ans*10+a;
+        if(idx==-1) return -1;
+        int smallesIdx= idx+1;
+        for(int i=idx+2;i<num.length;i++){
+            if(num[i]>num[idx] && num[i]<=num[smallesIdx]){
+                smallesIdx= i;
             }
-            if(ans>(long)Integer.MAX_VALUE) return -1;
-            return (int)ans;
         }
-        else return -1;
+        swap(num, idx, smallesIdx);
+        int sp= idx+1, ep= num.length-1;
+        while(sp<ep){
+            swap(num, sp, ep);
+            sp++; ep--;
+        }
+        long ans= Long.parseLong(new String(num));
+        if(ans>Integer.MAX_VALUE) return -1;
+        else return (int)ans;
+    }
+    private static void swap(char[] num, int i,int j){
+        char temp= num[i];
+        num[i]= num[j];
+        num[j]= temp;
     }
 }
