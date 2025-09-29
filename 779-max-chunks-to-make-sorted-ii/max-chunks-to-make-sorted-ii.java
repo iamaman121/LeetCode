@@ -18,11 +18,13 @@ class Solution {
         return suff;
     }
     public int maxChunksToSorted(int[] arr) {
-        int[] prefixMax= getPrefixMax(arr);
+        // int[] prefixMax= getPrefixMax(arr);
+        int prefixMax= -1;
         int[] suffixMin= getSuffixMin(arr);
         int n= arr.length, count= 0;
         for(int i=0;i<n-1;i++){
-            if(prefixMax[i]<=suffixMin[i+1]){
+            prefixMax= Math.max(prefixMax, arr[i]);
+            if(prefixMax<=suffixMin[i+1]){
                 count++;
             }
         }
