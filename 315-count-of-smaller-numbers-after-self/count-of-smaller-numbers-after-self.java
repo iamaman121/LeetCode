@@ -21,7 +21,7 @@ class Solution {
             }
         }
         while(i<=m){
-            cnt[arr[i].index]+= rightCount;
+            cnt[arr[i].index]+= e-m;
             tmp[k++]= arr[i++];
         }
         while(j<=e){
