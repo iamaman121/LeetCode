@@ -1,21 +1,17 @@
 class Solution {
     private int gcd(int a, int b){
-        if(b==0) return a;
-        else return gcd(b, a%b);
+        if(a==0) return b;
+        return gcd(b%a, a);
     }
     public boolean hasGroupsSizeX(int[] deck) {
-        Map<Integer,Integer> freq= new HashMap<>();
-        for(int num: deck){
-            if(!freq.containsKey(num)) freq.put(num,0);
-             freq.put(num,freq.get(num)+1);
+        Map<Integer, Integer> freq= new HashMap<>();
+        for(int x: deck){
+            freq.put(x, freq.getOrDefault(x, 0)+1);
         }
-        int ans=-1;
-        for(int val:freq.values()){
-            if(ans!=-1){
-                ans= gcd(ans,val);
-            }
-            else ans= val;
+        int ans= 0;
+        for(int key: freq.keySet()){
+            ans= gcd(ans, freq.get(key));
         }
-        return ans>=2;
+        return ans>1;
     }
 }
