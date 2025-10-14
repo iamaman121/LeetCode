@@ -1,24 +1,23 @@
-// https://leetcode.com/problems/sort-colors/description/
 class Solution {
     private void swap(int[] nums, int i, int j){
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
+        int temp= nums[i];
+        nums[i]= nums[j];
+        nums[j]= temp;
     }
     public void sortColors(int[] nums) {
-        int n= nums.length;
-        int p0= 0, p2= n-1, curr= 0;
-        while(curr<=p2){
-            if(nums[curr]==0){
-                swap(nums, p0++, curr++);
-                
+        int i=0, j=0, k= nums.length-1;
+        while(j<=k){
+            if(nums[j]==0){
+                swap(nums, i, j);
+                i++; 
+                if(i>j) j=i;
             }
-            else if(nums[curr]==1){
-                curr++;
+            else if(nums[j]==1){
+                j++;
             }
             else{
-                swap(nums, p2, curr);
-                p2--;
+                swap(nums, j, k);
+                k--; 
             }
         }
     }
