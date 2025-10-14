@@ -1,11 +1,12 @@
 class Solution {
     public String toLowerCase(String s) {
-        char[] str = s.toCharArray();
-        for(int i=0;i<str.length;i++){
-            if(str[i]>=65 && str[i]<=90){
-                str[i] = (char)(str[i]+32);
+        StringBuilder sb= new StringBuilder();
+        for(char ch: s.toCharArray()){
+            if(ch>='A' && ch<='Z'){
+                sb.append((char)(ch+32));
             }
+            else sb.append(ch);
         }
-        return "".valueOf(str);
+        return sb.toString();
     }
 }
