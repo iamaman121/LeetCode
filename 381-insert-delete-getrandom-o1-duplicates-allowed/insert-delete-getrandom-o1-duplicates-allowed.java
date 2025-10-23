@@ -19,18 +19,17 @@ class RandomizedCollection {
     }
     
     public boolean remove(int val) {
-        if(store.containsKey(val)== false || store.get(val).size()==0) return false;
+        if(store.containsKey(val)== false) return false;
         int lastIdx= list.size()-1, lastVal= list.get(lastIdx);
         if(lastVal==val){
             store.get(val).remove(lastIdx);
+            if(store.get(val).isEmpty()) store.remove(val);
             list.remove(lastIdx);
         }
         else{
-            int idx= 0;
-            for(int x: store.get(val)){
-                idx= x; break;
-            }
+            int idx = store.get(val).iterator().next();
             store.get(val).remove(idx);
+            if(store.get(val).isEmpty()) store.remove(val);
             store.get(lastVal).remove(lastIdx);
             store.get(lastVal).add(idx);
             list.set(idx, lastVal);
